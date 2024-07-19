@@ -87,6 +87,10 @@ export class AppComponent implements AfterViewInit {
   onSubmit(event: Event) {
     event.preventDefault();
 
+    if (!this.username || !this.workoutType || this.workoutMinutes <= 0) {
+      alert("Please fill in all fields with valid values. Workout time must be greater than 0.");
+      return;
+    }
     let user = this.dataSource.data.find(user => user.name === this.username);
 
     if (user) {
