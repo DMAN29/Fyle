@@ -94,20 +94,16 @@ export class AppComponent implements AfterViewInit {
     let user = this.dataSource.data.find(user => user.name === this.username);
 
     if (user) {
-      // Update existing user
       const workout = user.workouts.find(w => w.type === this.workoutType);
       if (workout) {
-        // Workout type exists, update minutes
         user.minutes = user.minutes - workout.minutes + this.workoutMinutes;
         workout.minutes = this.workoutMinutes;
       } else {
-        // Workout type does not exist, add new workout
         user.workouts.push({ type: this.workoutType, minutes: this.workoutMinutes });
         user.count++;
         user.minutes += this.workoutMinutes;
       }
     } else {
-      // Add new user
       const newUser: TableElement = {
         name: this.username,
         workouts: [{ type: this.workoutType, minutes: this.workoutMinutes }],
@@ -118,12 +114,11 @@ export class AppComponent implements AfterViewInit {
       this.dataSource.data = [...this.dataSource.data, newUser];
     }
 
-    // Reset form
     this.username = '';
     this.workoutType = '';
     this.workoutMinutes = 0;
 
-    this.applyFilter(); // Apply filter after updating data
+    this.applyFilter(); 
   }
 
   getWorkoutTypes(element: TableElement): string {
